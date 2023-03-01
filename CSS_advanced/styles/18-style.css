@@ -36,7 +36,7 @@
   --nav-item-letter-spacing: 0.04rem;
   --nav-item-display: inline-block;
   --nav-item-margin: 0 0 3rem 0;
-  --nav-item-margin: var(--color-primary);
+  --nav-item-link-hover: var(--color-primary);
 }
 
 *,
@@ -154,7 +154,6 @@ a:active {
   display: var(--nav-item-display);
   margin: var(--nav-item-margin);
 }
-
 .nav .nav-link {
   display: block;
   padding: 0.5rem 1rem;
