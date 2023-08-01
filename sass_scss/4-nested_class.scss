@@ -1,0 +1,10 @@
+/* use nested declarations: Text color #3D3D3D to elements inside body tags and Text color #FF0000 to any elements of class .red inside body tags */
+$dark-gray: #3D3D3D;
+$red: #FF0000;
+
+body {
+	color: $dark-gray;
+ .red {
+	 color: $red;
+ }
+ }
