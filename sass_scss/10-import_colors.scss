@@ -1,0 +1,14 @@
+/* use @import: Text color $red from 10-colors.scss to the class .red, ext color $green from 10-colors.scss to the class .green and Text color $blue from 10-colors.scss to the class .blue */
+@import "10-colors.scss";
+
+.red {
+	color: $red;
+}
+
+.green {
+	color: $green;
+}
+
+.blue {
+	color: $blue;
+}
