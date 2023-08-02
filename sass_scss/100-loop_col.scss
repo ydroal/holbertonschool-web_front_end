@@ -1,0 +1,6 @@
+/* use a @for: create .col-* class from 1 to 4, with width 100%, 50%, 33.3333333333%, 25% */
+@for $i from 1 through 4 {
+	.col-#{$i} {
+		width: (100% / $i);;
+	}
+}

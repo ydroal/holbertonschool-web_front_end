@@ -1,0 +1,12 @@
+/* Font size 20px to h1 tags and Font size 14px to h1 tags, when screen width is smaller than 320px */
+@mixin sp {
+  @media screen and (max-width: 320px) {
+    @content;
+  }
+}
+h1 {
+	font-size: 20px;
+ @include sp {
+	 font-size: 14px;
+ }
+ }

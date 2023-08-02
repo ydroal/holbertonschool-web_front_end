@@ -1,0 +1,31 @@
+/* Set h1 font size: 20px by default, 18px for screen <960px, 16px <640px, 14px <320px. h1.small color #1D1D1D <320px. */
+@mixin breakpoint-320 {
+  @media screen and (max-width: 320px) {
+    @content;
+  }
+}
+@mixin breakpoint-640 {
+  @media screen and (max-width: 640px) {
+    @content;
+  }
+}
+@mixin breakpoint-960 {
+  @media screen and (max-width: 960px) {
+    @content;
+  }
+}
+h1 {
+        font-size: 20px;
+ @include breakpoint-960 {
+         font-size: 18px;
+ }
+ @include breakpoint-640 {
+	 font-size: 16px;
+ }
+ @include breakpoint-320 {
+	 font-size: 14px;
+  &.small {
+	 color: #1D1D1D;
+ } 
+ }
+ }
