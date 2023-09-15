@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+
+      <meta charset="utf-8" />
+      <title>Task 7</title>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+      
+      <script type="application/javascript">
+        $(function() {
+          function createSearchForm() {
+            const form = $('<form>')
+              .append(
+                $('<input>').attr('type', 'text'),
+                $('<input>').attr('type', 'submit').val('Submit'));
+
+            $('body').append(form, $('<ul>'));
+
+            form.on('submit', function(event) {
+              event.preventDefault();
+              queryWikipedia($('input[type="text"]').val());
+            });
+          }
+          
+          function addNewArticle(id, title, snippet) {
+            const li = $('<li>')
+              .append($('<p>'),$('<p>'));
+
+            li.children('p:nth-of-type(1)')
+              .append(
+                $('<span>').text(`${id} -`), 
+                $('<b>').text(title));
+
+            li.children('p:nth-of-type(2)').text(snippet);
+            li.appendTo('ul');
+          }
+
+          function queryWikipedia(search) {
+            const query = {
+              action: 'query',
+              list: 'search',
+              srsearch: search,
+              format: 'json',
+              origin: '*'
+            };
+
+            $.ajax({
+              url: 'https://en.wikipedia.org/w/api.php',
+              data: query,
+              dataType: 'jsonp',
+              success: function(res) {
+                if (res && res.query && res.query.search) {
+                  const pages = res.query.search;
+                  $('ul').empty();  // 前回の結果をクリア
+
+                  for(let item of pages){
+                      addNewArticle(item.pageid, item.title, item.snippet);
+                  }
+                } else {
+                  console.error('No data returned from the API');
+                }
+              },
+              error: function(err) {
+                console.error('API request failed', err);
+              }
+            });
+          }
+
+          createSearchForm();
+          });
+
+      </script>
+    </body>
+
+</html>
