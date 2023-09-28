@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Login to the website</h1>
+  <input type="text" id="firstname" placeholder="Firstname">
+  <input type="text" id="email" placeholder="Email">
+  <button onclick="setCookies()">Log me in</button>
+  <h1>Cookies</h1>
+  <button onclick="showCookies()">Show the cookies</button>
+
+  <script>
+    function setCookies() {
+      let firstname = document.getElementById('firstname').value;
+      let email = document.getElementById('email').value;
+      let expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 10);
+      const utcString = expiryDate.toUTCString();
+      document.cookie = `firstname=${firstname}; expires=${utcString}`;
+      document.cookie = `email=${email}; expires=${utcString}`;
+    }
+
+    function getCookie(name) {
+      if (!document.cookie) {
+        return '';
+      }
+      let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ));
+      return matches ? decodeURIComponent(matches[1]) : '';
+    }
+
+    function showCookies() {
+      let body = document.querySelector('body');
+      let paragraph = document.createElement('p');
+      paragraph.innerHTML = `Email: ${getCookie('email')} - Firstname: ${getCookie('firstname')}`;
+      body.appendChild(paragraph);
+    }
+
+
+  </script>
+</body>
+</html>

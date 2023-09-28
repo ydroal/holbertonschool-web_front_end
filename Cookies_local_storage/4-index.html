@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+</head>
+<body>
+  <div id="form">
+    <h2>Login to the website</h2>
+    <input type="text" id="firstname" placeholder="Firstname">
+    <input type="text" id="email" placeholder="Email">
+    <button onclick="setCookiesAndShowWelcomeMessage()">Log me in</button>
+  </div>
+
+  <script>
+    function setCookiesAndShowWelcomeMessage() {
+      let firstname = document.getElementById('firstname').value;
+      let email = document.getElementById('email').value;
+      Cookies.set('firstname', firstname, { expires: 10});
+      Cookies.set('email', email, { expires: 10});
+      showWelcomeMessageOrForm()
+    }
+
+    function showCookies() {
+      let body = document.querySelector('body');
+      let paragraph = document.createElement('p');
+      paragraph.innerHTML = `Email: ${Cookies.get('email')} - Firstname: ${Cookies.get('firstname')}`;
+      body.appendChild(paragraph);
+    }
+
+    function showForm() {
+      let welcomeMessage = document.getElementById('welcomeMessage');
+      if (welcomeMessage) {
+        welcomeMessage.remove();
+      }
+
+      let form = document.getElementById('form');
+      form.style.display = 'block';
+
+      // ここで入力フィールドの値をクリアする
+      let firstname = document.getElementById('firstname');
+      let email = document.getElementById('email');
+      firstname.value = '';
+      email.value = '';
+    }
+
+    function hideForm() {
+      let form = document.getElementById('form');
+      form.style.display = 'none';
+    }
+
+    function deleteCookiesAndShowForm() {
+      if (document.cookie) {
+      // cookie 削除(すぐに有効期限切れにする)
+      Cookies.remove('firstname');
+      Cookies.remove('email');
+      showForm();
+      }
+    }
+
+    function showWelcomeMessageOrForm() {
+      if (!Cookies.get('firstname')) {
+        showForm();
+      } else {
+        hideForm();
+
+        let h1 = document.createElement('h1');
+        h1.id = 'welcomeMessage';
+        h1.textContent = `Welcome: ${Cookies.get('firstname')}`;
+
+        let a = document.createElement('a');
+        a.textContent = ' (logout)'
+        a.style.cssText = "font-weight: normal; font-style: italic; margin-left: 10px;";
+        a.addEventListener('click', deleteCookiesAndShowForm);
+
+        h1.appendChild(a);
+        document.body.appendChild(h1);
+      }
+    }
+  </script>
+</body>
+</html>
